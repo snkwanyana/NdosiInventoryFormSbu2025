@@ -10,7 +10,7 @@ import org.openqa.selenium.safari.SafariDriver;
 
 public class BrowserFactory {
 
-    static WebDriver driver;
+     static WebDriver driver;
 
     public static WebDriver startBrowser(String browserChoice, String url) {
 
