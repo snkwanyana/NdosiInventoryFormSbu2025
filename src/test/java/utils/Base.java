@@ -1,15 +1,25 @@
 package utils;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.AfterClass;
 import pagesObjects.HomePage;
 import pagesObjects.LearningMaterialsPage;
 import utils.BrowserFactory;
 
 public class Base {
 
-    BrowserFactory browserFactory = new BrowserFactory();
+    static BrowserFactory browserFactory = new BrowserFactory();
 
-    final WebDriver driver = browserFactory.startBrowser("chrome", "https://www.ndosiautomation.co.za/");
-    HomePage homePage = new HomePage(driver);
-    LearningMaterialsPage learningMaterialsPage = new LearningMaterialsPage(driver);
+    static final WebDriver driver = browserFactory.startBrowser("chrome", "https://www.ndosiautomation.co.za/");
+    public HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+    public LearningMaterialsPage learningMaterialsPage = PageFactory.initElements(driver, LearningMaterialsPage.class);
+
+    @AfterClass
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
 }
+

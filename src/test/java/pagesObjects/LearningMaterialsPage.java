@@ -3,6 +3,10 @@ package pagesObjects;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class LearningMaterialsPage {
 
@@ -22,6 +26,9 @@ public class LearningMaterialsPage {
     @FindBy(id = "signup-toggle")
     WebElement signupButtonId;
 
+    @FindBy(id = "logout-button")
+    WebElement logoutButtonId;
+
     public LearningMaterialsPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -31,10 +38,13 @@ public class LearningMaterialsPage {
     }
 
     public void enterEmail(String email) {
+        new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.visibilityOf(emailFieldId));
+        emailFieldId.clear();
         emailFieldId.sendKeys(email);
     }
 
     public void enterPassword(String password) {
+        passwordFieldId.clear();
         passwordFieldId.sendKeys(password);
     }
 
@@ -44,6 +54,15 @@ public class LearningMaterialsPage {
 
     public void clickOnSignupButton() {
         signupButtonId.click();
+    }
+
+    public void clickOnLogoutButton() {
+        logoutButtonId.click();
+    }
+
+    public void verifyLogoutButtonIsDisplayed() {
+        new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.visibilityOf(logoutButtonId));
+        logoutButtonId.isDisplayed();
     }
 
 }
