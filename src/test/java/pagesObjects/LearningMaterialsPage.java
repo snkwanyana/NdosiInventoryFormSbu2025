@@ -29,6 +29,22 @@ public class LearningMaterialsPage {
     @FindBy(id = "logout-button")
     WebElement logoutButtonId;
 
+    /** Registratin page elements added here **/
+
+    @FindBy(id = "register-firstName")
+    WebElement firstNameFieldId;
+    @FindBy(id = "register-lastName")
+    WebElement lastNameFieldI;
+    @FindBy(id = "register-email")
+    WebElement emailFieldI;
+    @FindBy(id = "register-password")
+    WebElement passwordFieldI;
+    @FindBy(id = "register-confirmPassword")
+    WebElement confirmPasswordFieldI;
+    @FindBy(id = "register-submit")
+    WebElement createAccountButtonId;
+
+
     public LearningMaterialsPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -63,6 +79,37 @@ public class LearningMaterialsPage {
     public void verifyLogoutButtonIsDisplayed() {
         new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.visibilityOf(logoutButtonId));
         logoutButtonId.isDisplayed();
+    }
+
+    public void enterFirstName(String firstName){
+        firstNameFieldId.clear();
+        firstNameFieldId.sendKeys(firstName);
+    }
+
+    public void enterLastName(String lastName){
+        lastNameFieldI.clear();
+        lastNameFieldI.sendKeys(lastName);
+    }
+
+    public void enterRegistrationEmail(String email) {
+        emailFieldI.clear();
+        emailFieldI.sendKeys(email);
+    }
+    public void enterRegistrationPassword(String password) {
+        passwordFieldI.clear();
+        passwordFieldI.sendKeys(password);
+    }
+    public void enterConfirmPassword(String confirmPassword) {
+        confirmPasswordFieldI.clear();
+        confirmPasswordFieldI.sendKeys(confirmPassword);
+    }
+    public void clickOnCreateAccountButton() {
+        createAccountButtonId.click();
+    }
+
+    public void verifyCreateAccountButtonIsDisplayed() {
+        new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.visibilityOf(createAccountButtonId));
+        createAccountButtonId.isDisplayed();
     }
 
 }
