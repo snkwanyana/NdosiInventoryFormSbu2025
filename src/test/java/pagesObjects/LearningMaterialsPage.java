@@ -29,6 +29,9 @@ public class LearningMaterialsPage {
     @FindBy(id = "logout-button")
     WebElement logoutButtonId;
 
+    @FindBy(id = "tab-btn-web")
+    WebElement webAutomationAdvanceTabId;
+
     /** Registratin page elements added here **/
 
     @FindBy(id = "register-firstName")
@@ -110,6 +113,10 @@ public class LearningMaterialsPage {
     public void verifyCreateAccountButtonIsDisplayed() {
         new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.visibilityOf(createAccountButtonId));
         createAccountButtonId.isDisplayed();
+    }
+
+    public void clickOnWebAutomationAdvanceTab() {
+        webAutomationAdvanceTabId.click();
     }
 
 }
