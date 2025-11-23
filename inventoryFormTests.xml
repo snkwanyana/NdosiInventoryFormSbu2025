@@ -24,6 +24,18 @@
                     <include name="emailAlreadyRegisteredTest"/>
                 </methods>
             </class>
+            <class name="tests.WizardValidationsTest">
+                    <methods>
+                        <include name="noDeviceSelectedValidationTest"/>
+                        <include name="noBrandSelectedValidationTest"/>
+                        <include name="noStorageSelectedValidationTest"/>
+                        <include name="noQuantityEnteredValidationTest"/>
+                        <include name="quantityMustBeLessThanOrEqualToTenValidationTest"/>
+                        <include name="addressNotEnteredValidationTest"/>
+                        <include name="allFieldsPopulatedTest"/>
+                    </methods>
+            </class>
+
         </classes>
     </test>
 </suite>

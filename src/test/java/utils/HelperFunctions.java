@@ -21,7 +21,7 @@ public class HelperFunctions {
             alert.accept();
 
         } catch (Exception e) {
-            e.getMessage();
+            throw new RuntimeException("Alert not found");
         }
     }
 
