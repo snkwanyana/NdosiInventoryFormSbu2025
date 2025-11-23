@@ -8,7 +8,7 @@ import java.io.File;
 
 public class ExtentReportManager {
 
-    private static String reportDir=System.getProperty("user.dir") +"/Reports/sauceDemo.html";
+    private static String reportDir=System.getProperty("user.dir") +"/Reports/inventoryForm.html";
 
     private static ExtentReports extentReports;
     private static ExtentSparkReporter extentSparkReporter;
@@ -20,7 +20,7 @@ public class ExtentReportManager {
 
         extentSparkReporter.config().setDocumentTitle("Extent Report");
         extentSparkReporter.config().setTheme(Theme.DARK);
-        extentSparkReporter.config().setReportName("Sauce Demo");
+        extentSparkReporter.config().setReportName("Inventory Form Automation Report");
 
         extentReports.setSystemInfo("OS", System.getProperty("os.name"));
         extentReports.setSystemInfo("Execution Machine", System.getProperty("user.name"));
