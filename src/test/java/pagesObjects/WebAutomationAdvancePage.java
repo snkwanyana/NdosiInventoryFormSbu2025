@@ -1,5 +1,6 @@
 package pagesObjects;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -39,8 +40,16 @@ public class WebAutomationAdvancePage {
     WebElement inventoryBackButtonId;
     @FindBy(id = "add-to-cart-btn")
     WebElement addToCartBackButtonId;
+    @FindBy(id = "unit-price-value")
+    WebElement unitPriceValueId;
 
-    public WebAutomationAdvancePage(WebDriver driver){
+    @FindBy(id = "subtotal-value")
+    WebElement subtotalValueId;
+
+    @FindBy(id = "quantity-label")
+    WebElement quantityLabelId;
+
+    public WebAutomationAdvancePage(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -50,11 +59,12 @@ public class WebAutomationAdvancePage {
         return select;
     }
 
-    public void confirmIfWebAssessmentInventoryFormIsDisplayed(){
+    public void confirmIfWebAssessmentInventoryFormIsDisplayed() {
         webAssessmentInventoryFormLebed_xpath.isDisplayed();
     }
 
-    public void selectDeviceType(String deviceType){
+    public void selectDeviceType(String deviceType) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(false);", deviceType_id);
         deviceType_id.click();
         selectFromDropdownList(deviceType_id, deviceType);
     }
@@ -65,7 +75,7 @@ public class WebAutomationAdvancePage {
 
     }
 
-    public void selectStorage(String storage){
+    public void selectStorage(String storage) {
         List<WebElement> storageOptions = storageRadioButtons_value_xpath;
         for (WebElement option : storageOptions) {
             if (option.getAttribute("value").equals(storage)) {
@@ -75,24 +85,25 @@ public class WebAutomationAdvancePage {
         }
     }
 
-    public void selectColor(String color){
+    public void selectColor(String color) {
         color_id.click();
         selectFromDropdownList(color_id, color);
     }
 
-    public void enterQuantity(String quantity){
+    public void enterQuantity(String quantity) {
         quantity_id.clear();
         quantity_id.sendKeys(quantity);
     }
-    public void enterDeliveryAddress(String email){
+
+    public void enterDeliveryAddress(String email) {
         deliveryAddressId.sendKeys(email);
     }
 
-    public void clickPurchaseButton(){
+    public void clickPurchaseButton() {
         purchaseButton_id.click();
     }
 
-    public void orderConfirmationMessage(String expectedMessage){
+    public void orderConfirmationMessage(String expectedMessage) {
         System.out.println(orderPlacedMessage_xpath.getText());
         Assert.assertTrue(
                 orderPlacedMessage_xpath.getText().equals(expectedMessage),
@@ -101,19 +112,37 @@ public class WebAutomationAdvancePage {
 
     }
 
-    public void clickNextButton(){
+    public void clickNextButton() {
         nextButtonId.click();
     }
 
-    public void clickBackButton(){
+    public void clickBackButton() {
         inventoryBackButtonId.click();
     }
-    public void clickAddToCartButton(){
+
+    public void clickAddToCartButton() {
         addToCartBackButtonId.click();
     }
 
-    public void verifyAddToCartButtonIsDisplayed(){
+    public void verifyAddToCartButtonIsDisplayed() {
         addToCartBackButtonId.isDisplayed();
+    }
+
+    public String getUnitPrice() {
+        return unitPriceValueId.getText();
+    }
+    public String getSubtotal() {
+        return subtotalValueId.getText();
+    }
+    public String getQuantity() {
+        return quantityLabelId.getText();
+    }
+
+    public void checkUnitPriceEquals(String expectedPrice) {
+        Assert.assertEquals(getUnitPrice(), expectedPrice, "Unit price does not match expected value.");
+    }
+    public void checkSubtotalEquals(String expectedSubtotal) {
+        Assert.assertEquals(getSubtotal(), expectedSubtotal, "Subtotal does not match expected value.");
     }
 
 }
