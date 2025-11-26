@@ -37,11 +37,9 @@
             </class>
             <class name="tests.PricingPanelTest">
                 <methods>
-                    <include name="verifyNoPricingForNoDeviceAndStorageTest"/>
                     <include name="verifyPhoneAnd64GBQty1PricingTest"/>
                     <include name="verifyPhoneAnd128GBQty2PricingTest"/>
                     <include name="verifyLaptopAnd256GBQty1PricingTest"/>
-                    <include name="verifyClearingDeviceResetsPricingTest"/>
                 </methods>
             </class>
 

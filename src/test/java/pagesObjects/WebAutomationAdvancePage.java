@@ -25,6 +25,14 @@ public class WebAutomationAdvancePage {
     WebElement color_id;
     @FindBy(xpath = "//div[@class='field-row']/div[@role='radiogroup']/label/input[@value]")
     List<WebElement> storageRadioButtons_value_xpath;
+
+    @FindBy(xpath = "//input[@type='radio'][@value]")
+    List<WebElement> extrasRadioButtons_value_xpath;
+    @FindBy(id = "discount-code")
+    WebElement discountCode_id;
+
+    @FindBy(id = "apply-discount-btn")
+    WebElement applyDiscountButton_id;
     @FindBy(id = "quantity")
     WebElement quantity_id;
     @FindBy(id = "address")
@@ -48,6 +56,21 @@ public class WebAutomationAdvancePage {
 
     @FindBy(id = "quantity-label")
     WebElement quantityLabelId;
+    @FindBy(id = "base-price-value")
+    WebElement basePriceValueId;
+    @FindBy(id = "breakdown-quantity-value")
+    WebElement breakdownQuantityValueId;
+    @FindBy(id = "breakdown-subtotal-value")
+    WebElement breakdownSubtotalValueId;
+    @FindBy(id = "breakdown-warranty-value")
+    WebElement breakdownWarrantyValueValueId;
+    @FindBy(id = "breakdown-shipping-value")
+    WebElement breakdownShippingValueValueId;
+    @FindBy(id = "breakdown-discount-value")
+    WebElement breakdownDiscountValueValueId;
+    @FindBy(id = "breakdown-total-value")
+    WebElement breakdownTotalValueValueId;
+
 
     public WebAutomationAdvancePage(WebDriver driver) {
         this.driver = driver;
@@ -79,6 +102,17 @@ public class WebAutomationAdvancePage {
         List<WebElement> storageOptions = storageRadioButtons_value_xpath;
         for (WebElement option : storageOptions) {
             if (option.getAttribute("value").equals(storage)) {
+                option.click();
+                break;
+            }
+        }
+    }
+
+    public void selectShippingAndWarranty(String selection) {
+        List<WebElement> storageOptions = extrasRadioButtons_value_xpath;
+        for (WebElement option : storageOptions) {
+//            System.out.println(option.getAttribute("value"));
+            if (option.getAttribute("value").equals(selection)) {
                 option.click();
                 break;
             }
@@ -128,21 +162,73 @@ public class WebAutomationAdvancePage {
         addToCartBackButtonId.isDisplayed();
     }
 
-    public String getUnitPrice() {
-        return unitPriceValueId.getText();
+    public double getUnitPrice() {
+        return Double.parseDouble(unitPriceValueId.getText().replace("R", "").replace(",", ""));
     }
-    public String getSubtotal() {
-        return subtotalValueId.getText();
+
+    public double getSubtotal() {
+        return Double.parseDouble(subtotalValueId.getText().replace("R", "").replace(",", ""));
     }
-    public String getQuantity() {
-        return quantityLabelId.getText();
+
+    public int getQuantity() {
+        return Integer.parseInt(quantityLabelId.getText());
     }
 
     public void checkUnitPriceEquals(String expectedPrice) {
-        Assert.assertEquals(getUnitPrice(), expectedPrice, "Unit price does not match expected value.");
+        double expectedUnitPrice = Double.parseDouble(expectedPrice.replace("R", "").replace(",", ""));
+        Assert.assertEquals(getUnitPrice(), expectedUnitPrice, "Unit price does not match expected value.");
     }
+
     public void checkSubtotalEquals(String expectedSubtotal) {
-        Assert.assertEquals(getSubtotal(), expectedSubtotal, "Subtotal does not match expected value.");
+        double expectedSubtotalPrice = Double.parseDouble(expectedSubtotal.replace("R", "").replace(",", ""));
+        Assert.assertEquals(getSubtotal(), expectedSubtotalPrice, "Subtotal does not match expected value.");
+    }
+
+    public void enterDiscountCode(String discountCode) {
+        discountCode_id.sendKeys(discountCode);
+    }
+
+    public void clickApplyDiscountButton() {
+        applyDiscountButton_id.click();
+    }
+
+    public double getBasePrice() {
+        return Double.parseDouble(basePriceValueId.getText().replace("R", "").replace(",", ""));
+    }
+    public double getBreakdownQuantityValue() {
+        return Double.parseDouble(breakdownQuantityValueId.getText().replace("R", "").replace(",", ""));
+    }
+    public double getBreakdownSubtotalValue() {
+        return Double.parseDouble(breakdownSubtotalValueId.getText().replace("R", "").replace(",", ""));
+    }
+
+    public double getBreakdownWarrantyValue() {
+        return Double.parseDouble(breakdownWarrantyValueValueId.getText().replace("R", "").replace(",", ""));
+    }
+    public double getBreakdownShippingValue() {
+        return Double.parseDouble(breakdownShippingValueValueId.getText().replace("R", "").replace(",", ""));
+    }
+    public double getBreakdownDiscountValue() {
+        return Double.parseDouble(breakdownDiscountValueValueId.getText().replace("- R", "").replace(",", ""));
+    }
+    public double getBreakdownTotalValue() {
+        return Double.parseDouble(breakdownTotalValueValueId.getText().replace("R", "").replace(",", ""));
+    }
+
+    public void verifyShippingPrice(String expectedShippingPrice) {
+        double expectedShippingPriceValue = Double.parseDouble(expectedShippingPrice.replace("R", "").replace(",", ""));
+        Assert.assertEquals(getBreakdownShippingValue(), expectedShippingPriceValue, "Shipping price is incorrect.");
+    }
+
+    public void verifyWarrantyPrice(String expectedWarrantyPrice) {
+        double expectedWarrantyPriceValue = Double.parseDouble(expectedWarrantyPrice.replace("R", "").replace(",", ""));
+        Assert.assertEquals(getBreakdownWarrantyValue(), expectedWarrantyPriceValue, "Warranty price is incorrect.");
+    }
+    public void calculateTotalPrice() {
+        double subtotal = getBasePrice() * getBreakdownQuantityValue();
+        double total = subtotal + getBreakdownWarrantyValue() + getBreakdownShippingValue() - getBreakdownDiscountValue();
+        System.out.println("Calculated Total: R" + total + "and actual Total: R" + getBreakdownTotalValue());
+        Assert.assertEquals(getBreakdownTotalValue(), total, "Total price calculation is incorrect.");
     }
 
 }
