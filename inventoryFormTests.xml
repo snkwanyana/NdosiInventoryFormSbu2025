@@ -1,47 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite">
+<suite name="All Test Suite" parallel="false">
     <listeners>
         <listener class-name="ExtentReports.Listener"></listener>
     </listeners>
     <test verbose="2" preserve-order="true" name="NdosiInventoryFormSbu2025">
         <classes>
-            <class name="tests.LoginTest">
-                <methods>
-                    <include name="validCredentialsTest"/>
-                    <include name="invalidPasswordTest"/>
-                    <include name="extraSpacesInCredentialsTest"/>
-                    <include name="switchTheTabsTest"/>
-                    <include name="logoutTest"/>
-                </methods>
-            </class>
-            <class name="tests.RegistrationTest">
-                <methods>
-                    <include name="passwordMismatchTest"/>
-                    <include name="badEmailFormatTest"/>
-                    <include name="passwordLessThan8Test"/>
-                    <include name="successRegistrationTest"/>
-                    <include name="emailAlreadyRegisteredTest"/>
-                </methods>
-            </class>
-            <class name="tests.WizardValidationsTest">
-                    <methods>
-                        <include name="noDeviceSelectedValidationTest"/>
-                        <include name="noBrandSelectedValidationTest"/>
-                        <include name="noStorageSelectedValidationTest"/>
-                        <include name="noQuantityEnteredValidationTest"/>
-                        <include name="quantityMustBeLessThanOrEqualToTenValidationTest"/>
-                        <include name="addressNotEnteredValidationTest"/>
-                        <include name="allFieldsPopulatedTest"/>
-                    </methods>
-            </class>
-            <class name="tests.PricingPanelTest">
-                <methods>
-                    <include name="verifyPhoneAnd64GBQty1PricingTest"/>
-                    <include name="verifyPhoneAnd128GBQty2PricingTest"/>
-                    <include name="verifyLaptopAnd256GBQty1PricingTest"/>
-                </methods>
-            </class>
+            <class name="tests.LoginTest"/>
+            <class name="tests.RegistrationTest"/>
+            <class name="tests.WizardValidationsTest"/>
+            <class name="tests.PricingPanelTest"/>
 
 
         </classes>

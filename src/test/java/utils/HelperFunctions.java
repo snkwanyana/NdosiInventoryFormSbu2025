@@ -14,7 +14,7 @@ public class HelperFunctions {
     static WebDriver driver = BrowserFactory.driver;
     public static void alertHandler(String message) {
         try {
-            new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.alertIsPresent());
+            new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.alertIsPresent());
             Alert alert = driver.switchTo().alert();
             String invalidLogin = alert.getText();
             Assert.assertEquals(invalidLogin, message);
